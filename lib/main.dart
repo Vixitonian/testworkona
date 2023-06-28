@@ -27,11 +27,22 @@ class _WebViewPageState extends State<WebViewPage> {
   final Completer<WebViewController> _controller =
       Completer<WebViewController>();
 
+  Future<void> _refreshWebView() async {
+    final webViewController = await _controller.future;
+    webViewController.reload();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Webview App'),
+        title: Text('Taskify'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.refresh),
+            onPressed: _refreshWebView,
+          ),
+        ],
       ),
       body: WebView(
         initialUrl: url,
